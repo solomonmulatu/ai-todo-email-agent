@@ -2,4 +2,20 @@
 name = "ai-todo-email-agent"
 version = "0.1.0"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "apscheduler>=3,<4",
+    "dateparser>=1.5.0",
+    "fastapi>=0.162.4",
+    "google-api-python-client>=2.202.0",
+    "google-auth-httplib2>=0.4.4",
+    "google-auth-oauthlib>=1.5.0",
+    "httpx>=0.28.1",
+    "pydantic>=2.14.3",
+    "pydantic-settings>=2.16.2",
+    "sqlalchemy>=2.1.8",
+    "streamlit>=1.67.0",
+    "tzdata>=2026.6",
+    "uvicorn[standard]>=0.54.0",
+     "langchain>=1.4.7",
+    "langchain-openai>=1.7.3",
+]
