@@ -1,7 +1,8 @@
 from datetime import datetime, timezone
 from enum import  StrEnum
-from sqlalchemy import DateTime, String, Text
-from sqlalchemy.orm import DeclarativeBase,Mapped,mapped_column
+from sqlalchemy import DateTime, String, Text, ForeignKey
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+
 
 class Base(DeclarativeBase):
     pass
@@ -38,4 +39,19 @@ class Task(Base):
         default=utc_now,
         nullable=False,
     )
+
+class EmailDraft(Base):
+    __tablename__ = "email_drafts"
+    id:Mapped[int]=mapped_column(primary_key=True)
+    task_id: Mapped[int] = mapped_column(
+        ForeignKey("tasks.id"),
+        nullable=False,
+        index=True,
+    )
+    subject:Mapped[str]=mapped_column(String(200),nullable=False)
+    body:Mapped[str]=mapped_column(Text,nullable=False)
+    approved_at: Mapped[datetime | None]=mapped_column(DateTime(timezone=True))
+    send_at: Mapped[datetime | None]=mapped_column(DateTime(timezone=True))
+    task: Mapped["Task"] = relationship(back_populates="email_drafts")
+
 
