@@ -19,6 +19,12 @@ class TaskStatus(StrEnum):
     FAILED = "failed"
     REJECTED = "rejected"
 
+class SendResult(StrEnum):
+    SENT = "sent"
+    FAILED = "failed"
+    UNKNOWN = "unknown"
+
+
 def utc_now():
     return datetime.now(timezone.utc)
 
@@ -53,5 +59,34 @@ class EmailDraft(Base):
     approved_at: Mapped[datetime | None]=mapped_column(DateTime(timezone=True))
     send_at: Mapped[datetime | None]=mapped_column(DateTime(timezone=True))
     task: Mapped["Task"] = relationship(back_populates="email_drafts")
+
+
+class SendLog(Base):
+    __tablename__ = "send_logs"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+
+    email_draft_id: Mapped[int] = mapped_column(
+        ForeignKey("email_drafts.id"),
+        nullable=False,
+        index=True,
+    )
+
+    attempted_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False,
+    )
+
+    result: Mapped[SendResult] = mapped_column(
+        String(20),
+        nullable=False,
+    )
+
+    gmail_message_id: Mapped[str | None] = mapped_column(String(255))
+    error_message: Mapped[str | None] = mapped_column(Text)
+    email_draft: Mapped["EmailDraft"] = relationship(
+        back_populates="send_logs"
+    )
 
 
