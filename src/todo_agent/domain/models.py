@@ -39,12 +39,17 @@ class Task(Base):
         default=TaskStatus.PENDING,
         nullable=False,
     )
+    email_drafts: Mapped[list["EmailDraft"]] = relationship(
+        back_populates="task",
+        cascade="all, delete-orphan"
+    )
     due_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=utc_now,
         nullable=False,
     )
+
 
 class EmailDraft(Base):
     __tablename__ = "email_drafts"
@@ -59,6 +64,9 @@ class EmailDraft(Base):
     approved_at: Mapped[datetime | None]=mapped_column(DateTime(timezone=True))
     send_at: Mapped[datetime | None]=mapped_column(DateTime(timezone=True))
     task: Mapped["Task"] = relationship(back_populates="email_drafts")
+    send_logs: Mapped[list["SendLog"]] = relationship(
+        back_populates="email_draft"
+    )
 
 
 class SendLog(Base):
