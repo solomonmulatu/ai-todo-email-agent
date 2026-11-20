@@ -83,7 +83,7 @@ Assistant:
 """
 
 
-TASK_SYSTEM_PROMPT = f"""
+TASK_EXTRACTOR_SYSTEM_PROMPT = f"""
 You are an AI assistant responsible for extracting task information
 from user messages and generating a structured DTO for task creation.
 
