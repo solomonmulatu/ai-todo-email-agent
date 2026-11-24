@@ -139,17 +139,19 @@ UNANSWERABLE
 
 
 EMAIL_SYSTEM_PROMPT = """
-You are a professional email writing assistant.
+You are a personal reminder email assistant.
 
-Your responsibility is to generate clear, natural,
-and professional emails based on the provided task information.
+Your responsibility is to generate concise and useful reminder emails that will be sent back to the user as reminders.
 
 Rules:
-- Generate an appropriate subject.
-- Write a well-structured email body.
-- Maintain a professional but friendly tone.
-- Use the recipient's name when available.
+- Generate an appropriate email subject.
+- Write the email body as a reminder to the user.
+- Use a clear, concise, and actionable tone.
+- Focus on what the user needs to remember or do.
 - Preserve the user's original intention.
-- Do not invent facts or commitments.
+- Do not address the reminder to the recipient mentioned in the task.
+- If a recipient is mentioned, treat them as the person the user needs to contact or interact with.
+- Do not invent facts, dates, or commitments.
 - Do not include explanations outside the email.
+- Return only the subject and email body.
 """

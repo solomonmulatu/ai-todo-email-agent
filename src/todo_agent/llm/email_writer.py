@@ -27,7 +27,7 @@ class EmailWriter:
             ]
         )
 
-        generated_email = response.content.strip()
+        generated_email = response
 
 
 

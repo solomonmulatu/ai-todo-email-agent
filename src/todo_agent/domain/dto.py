@@ -1,12 +1,18 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, EmailStr
 
 from todo_agent.domain.status import TaskStatus
 
 
+
+
 class TaskCreateRequest(BaseModel):
     reminder_text: str = Field(min_length=1, max_length=5000)
+    title: str = Field(min_length=1, max_length=100)
+    recipient_email: EmailStr | None = None
+    due_at: datetime | None = None
+
 
 
 class TaskResponse(BaseModel):

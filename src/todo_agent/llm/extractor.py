@@ -1,3 +1,5 @@
+import json
+
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_openai import ChatOpenAI
 
@@ -28,6 +30,6 @@ class Extractor:
 
         return{
             "result":"SUCCESS",
-            "task":extracted_task,
+            "task":json.loads(extracted_task),
         }
 
